@@ -5,11 +5,10 @@ export default class InfoForm extends Component {
     super(props);
 
     this.state = {
-      name : '',
-      email: '',
-      phone: '',
+      name : props.details.name,
+      email: props.details.email,
+      phone: props.details.phone,
     }
-
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
