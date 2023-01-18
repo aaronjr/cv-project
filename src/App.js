@@ -1,28 +1,38 @@
 import React, { Component } from "react";
+import InfoForm from "./infoForm"
 import './index.css';
 
-
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      general: [ 
-        {name: 'Aaron'},
-        {email: '@'},
-        {phone: '0'}
-      ],
+      general: {
+        name: '',
+        email: '',
+        phone: ''}
+      ,
       education : [],
       experience : [],
     };
   }
 
+  handleSubmit = (details) => {
+    this.setState({
+      general : {
+      name : details.name,
+      email : details.email,
+      phone : details.phone }
+    })
+  }
+
   render() {
-    const general = this.state.general[0].name
+    const general = this.state.general
 
     return (
       <div>
-        <p>{general}</p>
+        <InfoForm onSubmit = {this.handleSubmit}/>
+        <p> {general.name} {general.email} {general.phone}  </p>
       </div>
     );
   }
