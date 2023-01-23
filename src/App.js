@@ -1,8 +1,14 @@
 import React, { Component } from "react";
 import InfoForm from "./infoForm"
-import EduForm from "./education"
+import EduForm from "./eduForm"
 import ShowEdu from "./showEdu"
+import ExpForm from "./expForm"
 import './index.css';
+import All from "./All"
+
+// previous jobs with description
+// skills
+
 
 class App extends Component {
   constructor(props) {
@@ -12,12 +18,14 @@ class App extends Component {
       general: {
         name: '',
         email: '',
-        phone: ''}
+        phone: '',
+        bio: '',
+      }
       ,
       education : [],
       experience : [],
-      showGenInfoForm : true,
-      showEduForm : true,
+      skills : [],
+      slide: 0
     };
   }
 
@@ -26,45 +34,55 @@ class App extends Component {
       general : {
       name : details.name,
       email : details.email,
-      phone : details.phone 
+      phone : details.phone,
+      bio : details.bio  
       },
-      showGenInfoForm : false
+      slide : this.state.slide + 1
     })
   }
 
-  handleSubmitEdu = (details) => {
-    console.log(details)
+  handleSubmitEdu = (details, bool) => {
     this.setState({
-     education: [...this.state.education, details],
-     showEduForm : false
+     education: [...this.state.education, details]
     })
+    bool && this.setState({slide : this.state.slide + 1})
+  }
+
+  handleSubmitExp = (details, bool) => {
+    this.setState({
+     experience: [...this.state.experience, details],
+    })
+    bool && this.setState({slide : this.state.slide + 1})
   }
 
   render() {
-    const general = this.state.general
-    const edu = this.state.education
-    console.log(edu)
-    const showGenInfoForm = this.state.showGenInfoForm
-    const showEduForm = this.state.showEduForm
+    const general = this.state
+    const slide = this.state.slide
 
     return (
       <div>
-        {showGenInfoForm ? 
-          <InfoForm onSubmit = {this.handleSubmitInfo} details = {general}/> 
-          : 
+        {slide === 0 ? 
+          // general form
           <>
-            <p>{general.name} {general.email} {general.phone} </p>
-            <button onClick={() => this.setState({showGenInfoForm : true})}> Edit your information </button>
+            <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+            <All general = {general} />
           </>
-        }
-        {showEduForm ?
-          <EduForm onSubmit = {this.handleSubmitEdu} />
-        :
-        <>
-          <ShowEdu education = {edu}/>
-          <button onClick={() => this.setState({showEduForm : true})}> Add other schools</button>
-        </>
-
+          : 
+          slide === 1 ?
+          // education form
+          <EduForm onSubmit = {this.handleSubmitEdu}/>
+          : 
+          slide === 2 ?
+          // employment
+          <ExpForm onSubmit = {this.handleSubmitExp}/>
+          :
+          slide === 3 ?
+          // skills
+          <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+          :
+          slide === 4 &&
+          // all info
+          <All general = {general} />
         }
       </div>
     );
@@ -72,3 +90,21 @@ class App extends Component {
 }
 
 export default App;
+
+
+// {showGenInfoForm ? 
+//   <InfoForm onSubmit = {this.handleSubmitInfo} details = {general}/> 
+//   : 
+//   <>
+//     <p>{general.name} {general.email} {general.phone} </p>
+//     <button onClick={() => this.setState({showGenInfoForm : true})}> Edit your information </button>
+//   </>
+// }
+// {showEduForm ?
+//   <EduForm onSubmit = {this.handleSubmitEdu} />
+// :
+// <>
+//   <ShowEdu education = {edu}/>
+//   <button onClick={() => this.setState({showEduForm : true})}> Add other schools</button>
+// </>
+// }

@@ -11,17 +11,18 @@ export default class ShowEdu extends Component {
     return (
         <>
           {education.map((edu) => {
-          return <ul>
+          return <ul key={edu.key}>
             <li>School name: {edu.schoolName}</li>
             <li>From: {edu.yearFrom}</li>
             <li>To: {edu.yearTo}</li>
             <li>Lessons; </li>
+            <ul>
             {edu.lessons.map((lesson) => {
                return (
-               <ul>
-                <li key={lesson.id}>{lesson.name}</li>
-              </ul>)
+                <li key={lesson.key}>{lesson.grade} {lesson.name}</li>
+             )
             })}
+             </ul>
           </ul>
           })}
         </>
