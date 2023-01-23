@@ -3,11 +3,9 @@ import InfoForm from "./infoForm"
 import EduForm from "./eduForm"
 import ShowEdu from "./showEdu"
 import ExpForm from "./expForm"
+import SkillForm from "./skillForm"
 import './index.css';
 import All from "./All"
-
-// previous jobs with description
-// skills
 
 
 class App extends Component {
@@ -55,6 +53,13 @@ class App extends Component {
     bool && this.setState({slide : this.state.slide + 1})
   }
 
+  handleSubmitSkill = (details, bool) => {
+    this.setState({
+     skills: [...this.state.skills, details],
+    })
+    bool && this.setState({slide : this.state.slide + 1})
+  }
+
   render() {
     const general = this.state
     const slide = this.state.slide
@@ -62,26 +67,23 @@ class App extends Component {
     return (
       <div>
         {slide === 0 ? 
-          // general form
-          <>
-            <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
-            <All general = {general} />
-          </>
+          // General information form
+          <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
           : 
           slide === 1 ?
-          // education form
+          // Education form
           <EduForm onSubmit = {this.handleSubmitEdu}/>
           : 
           slide === 2 ?
-          // employment
+          // Employment form
           <ExpForm onSubmit = {this.handleSubmitExp}/>
           :
           slide === 3 ?
-          // skills
-          <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+          // Skills form
+          <SkillForm onSubmit = {this.handleSubmitSkill}/>
           :
           slide === 4 &&
-          // all info
+          // All gathered information
           <All general = {general} />
         }
       </div>
@@ -90,21 +92,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// {showGenInfoForm ? 
-//   <InfoForm onSubmit = {this.handleSubmitInfo} details = {general}/> 
-//   : 
-//   <>
-//     <p>{general.name} {general.email} {general.phone} </p>
-//     <button onClick={() => this.setState({showGenInfoForm : true})}> Edit your information </button>
-//   </>
-// }
-// {showEduForm ?
-//   <EduForm onSubmit = {this.handleSubmitEdu} />
-// :
-// <>
-//   <ShowEdu education = {edu}/>
-//   <button onClick={() => this.setState({showEduForm : true})}> Add other schools</button>
-// </>
-// }

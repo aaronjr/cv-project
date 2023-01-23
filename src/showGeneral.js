@@ -10,11 +10,11 @@ export default class ShowGeneral extends Component {
 
     return (
         <>
+          <h3>About me</h3>
           <p>Name: {general.name}</p>
           <p>Email: {general.email}</p>
           <p>Phone: {general.phone}</p>
           <p>About me: {general.bio}</p>
-          <p>Education</p>
         </>
     )
   }

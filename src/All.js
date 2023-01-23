@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import ShowEdu from "./showEdu"
 import ShowGeneral from "./showGeneral"
+import ShowExp from "./showExp"
+import ShowSkills from "./showSkills"
 
 export default class All extends Component {
   constructor(props){
@@ -17,6 +19,8 @@ export default class All extends Component {
       <div>
         <ShowGeneral general = {general} />
         <ShowEdu education = {education} />
+        <ShowExp experience = {experience} />
+        <ShowSkills skills = {skills} />
       </div>
     )
   }
