@@ -10,7 +10,7 @@ export default class ShowEdu extends Component {
 
     return (
         <>
-         <h3>Education</h3>
+          { !education  && <h3>Education</h3>}
           {education.map((edu) => {
           return <ul key={edu.key}>
             <li>School name: {edu.schoolName}</li>
@@ -26,6 +26,7 @@ export default class ShowEdu extends Component {
              </ul>
           </ul>
           })}
+          
         </>
     )
   }

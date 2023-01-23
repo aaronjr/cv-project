@@ -6,7 +6,8 @@ export default class SkillForm extends Component {
     super(props);
 
     this.state = {
-     skill: ''
+      key: uniqid(),
+      skill: ''
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -30,7 +31,7 @@ export default class SkillForm extends Component {
         <form>
           <label htmlFor="skill">Skills</label>
             <input
-              onChange={(e) => this.setState({skill : e.target.value})}
+              onChange={(e) => this.setState({skill : e.target.value, key: this.state.key})}
               value={details.skill || ''}
               type="text"
               id="skill"

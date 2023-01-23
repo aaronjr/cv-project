@@ -40,23 +40,29 @@ class App extends Component {
   }
 
   handleSubmitEdu = (details, bool) => {
-    this.setState({
-     education: [...this.state.education, details]
-    })
+    if(!( details[0] !== '')){
+      this.setState({
+      education: [...this.state.education, details]
+      })
+    }
     bool && this.setState({slide : this.state.slide + 1})
   }
 
   handleSubmitExp = (details, bool) => {
-    this.setState({
-     experience: [...this.state.experience, details],
-    })
+    if(!( details[0] !== '')){
+      this.setState({
+      experience: [...this.state.experience, details],
+      })
+    }
     bool && this.setState({slide : this.state.slide + 1})
   }
 
   handleSubmitSkill = (details, bool) => {
-    this.setState({
-     skills: [...this.state.skills, details],
-    })
+    if(!( details.skill[0] !== '')){
+      this.setState({
+      skills: [...this.state.skills, details],
+      })
+    }
     bool && this.setState({slide : this.state.slide + 1})
   }
 

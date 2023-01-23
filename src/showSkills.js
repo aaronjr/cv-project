@@ -10,7 +10,7 @@ export default class ShowSkills extends Component {
 
     return (
         <>
-          <h3>Skills</h3>
+          {skills || <h3>Skills</h3>}
           <ul>
             {skills.map((skill) => <li key={skill.key}>{skill.skill}</li> )}
            </ul>
