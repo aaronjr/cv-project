@@ -5,8 +5,10 @@ export default class EduForm extends Component {
   constructor(props) {
     super(props);
 
+    // check for editEdu (only needed for editing educations.)
     const editEdu = this.props.editEdu === null ? null : this.props.editEdu[0]
 
+    // set with old details or blank
     this.props.editEdu !== null ?
     this.state = {
       key: editEdu.key,
@@ -36,10 +38,14 @@ export default class EduForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
+  // function to prevent default, as not accesible inside a function
   prevent(e){
     e.preventDefault()
   }
-
+  // will pass the state back to app
+  // reset this state to all blank
+  // bool with either show user new form or 
+  // progress to other forms. 
   handleSubmit(bool){
     this.props.onSubmit(this.state, bool)
     this.setState({
@@ -60,6 +66,9 @@ export default class EduForm extends Component {
     const details = this.state
 
     return (
+      // on change will update into state
+      // value is either the information or blank if blank
+      // buttons will either show a blank form or move foward
       <div>
         <form>
           <label htmlFor="name">School name</label>

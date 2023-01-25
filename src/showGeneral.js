@@ -7,7 +7,7 @@ export default class ShowGeneral extends Component {
 
   render(){
     const general = this.props.general
-
+    // display data as expected
     return (
         <>
           <h3>About me</h3>

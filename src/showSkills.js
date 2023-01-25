@@ -7,7 +7,9 @@ export default class ShowSkills extends Component {
 
   render(){
     const skills = this.props.skills
-
+    // handlers passed from App.js.
+    // changed how its called depending on parameters
+    // if no skills, dont load its heading
     return (
         <div>
           { 

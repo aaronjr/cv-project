@@ -5,8 +5,10 @@ export default class ExpForm extends Component {
   constructor(props) {
     super(props);
 
+    // check for editExp (only needed for editing educations.)
     const editExp = this.props.editExp === null ? null :  this.props.editExp[0]
     
+    // set with old details or blank
     this.props.editExp !== null ?
     this.state = {
       key: editExp.key,
@@ -27,12 +29,16 @@ export default class ExpForm extends Component {
     }
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  // function to prevent default, as not accesible inside a function
   prevent(e){
     e.preventDefault()
   }
 
   handleSubmit(bool){
+    // will pass the state back to app
+    // reset this state to all blank
+    // bool with either show user new form or 
+    // progress to other forms. 
     this.props.onSubmit(this.state, bool)
     this.setState({
       key: uniqid(),
@@ -48,6 +54,9 @@ export default class ExpForm extends Component {
     const details = this.state
 
     return (
+      // on change will update into state
+      // value is either the information or blank if blank
+      // buttons will either show a blank form or move foward
       <div>
         <form>
           <label htmlFor="employer">Employer</label>
