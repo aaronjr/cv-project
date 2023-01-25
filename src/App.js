@@ -23,7 +23,10 @@ class App extends Component {
       education : [],
       experience : [],
       skills : [],
-      slide: 0
+      slide: 0,
+      editEdu: null,
+      editExp: null
+
     };
   }
 
@@ -40,15 +43,23 @@ class App extends Component {
   }
 
   handleSubmitEdu = (details, bool) => {
+    // check for exsitiing key, delete and add again but with the update info
+    // this is due to the edit button
+    const update = this.state.education.filter((edu) => edu.key !== details.key)
     this.setState({
-    education: [...this.state.education, details]
+    education: [...update, details],
+    editEdu: null
     })
     bool && this.setState({slide : this.state.slide + 1})
   }
 
   handleSubmitExp = (details, bool) => {
+    // check for exsitiing key, delete and add again but with the update info
+    // this is due to the edit button
+    const update = this.state.experience.filter((exp) => exp.key !== details.key)
     this.setState({
-    experience: [...this.state.experience, details],
+      experience: [...update, details],
+      editExp: null
     })
     bool && this.setState({slide : this.state.slide + 1})
   }
@@ -60,6 +71,43 @@ class App extends Component {
       })
     }
     bool && this.setState({slide : this.state.slide + 1})
+  }
+
+  handleEditEdu = (key) => {
+    const editEdu = this.state.education.filter((edu)=> edu.key === key )
+    this.setState({
+      slide: 1,
+      editEdu: editEdu
+    })
+  }
+
+  handleEditExp = (key) => {
+    const editExp = this.state.experience.filter((exp)=> exp.key === key )
+    this.setState({
+      slide: 2,
+      editExp: editExp
+    })
+  }
+
+  handleEditGen = () => {
+    this.setState({
+      slide: 0,
+    })
+  }
+
+  handleDeleteSkill = (key) => {
+    console.log(key)
+    const update = this.state.skills.filter((skill) => skill.key !== key)
+    this.setState({
+      skills: [...update],
+      slide: 4
+    })
+  }
+
+  handleAddSkill = () => {
+    this.setState({
+      slide:3
+    })
   }
 
   render() {
@@ -74,11 +122,11 @@ class App extends Component {
           : 
           slide === 1 ?
           // Education form
-          <EduForm onSubmit = {this.handleSubmitEdu}/>
+          <EduForm onSubmit = {this.handleSubmitEdu} editEdu = {this.state.editEdu} />
           : 
           slide === 2 ?
           // Employment form
-          <ExpForm onSubmit = {this.handleSubmitExp}/>
+          <ExpForm onSubmit = {this.handleSubmitExp} editExp = {this.state.editExp}/>
           :
           slide === 3 ?
           // Skills form
@@ -86,7 +134,7 @@ class App extends Component {
           :
           slide === 4 &&
           // All gathered information
-          <All general = {general} />
+          <All general = {general} handleAddSkill = {this.handleAddSkill} handleDeleteSkill = {this.handleDeleteSkill} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
         }
       </div>
     );

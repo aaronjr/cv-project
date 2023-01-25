@@ -17,10 +17,10 @@ export default class All extends Component {
 
     return (
       <div>
-        <ShowGeneral general = {general} />
-        <ShowEdu education = {education} />
-        <ShowExp experience = {experience} />
-        <ShowSkills skills = {skills} />
+        <ShowGeneral general = {general} onClick = {this.props.handleEditGen} />
+        <ShowEdu education = {education} onClick = {this.props.handleEditEdu} />
+        <ShowExp experience = {experience} onClick = {this.props.handleEditExp} />
+        <ShowSkills skills = {skills} onClick = {this.props.handleDeleteSkill} handleAddSkill = {this.props.handleAddSkill}/>
       </div>
     )
   }

@@ -17,10 +17,12 @@ export default class ShowExp extends Component {
             <h3>Experience</h3>
               {experience.map((exp) => {
                 return (
+                experience.employer !== '' &&
                 <ul key={exp.key}>
                   <li>Employer: {exp.employer} ({exp.yearFrom} - {exp.yearTo})</li>
                   <li>Title: {exp.title}</li>
                   <li>Job description: {exp.description}</li>
+                  <button onClick = {() => this.props.onClick(exp.key)}>Edit</button>
                 </ul>)
               })}
             </div>

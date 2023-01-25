@@ -15,6 +15,7 @@ export default class ShowGeneral extends Component {
           <p>Email: {general.email}</p>
           <p>Phone: {general.phone}</p>
           <p>About me: {general.bio}</p>
+          <button onClick = {this.props.onClick}>Edit</button>
         </>
     )
   }

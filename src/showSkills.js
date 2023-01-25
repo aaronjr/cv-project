@@ -16,12 +16,16 @@ export default class ShowSkills extends Component {
             <h3>Skills</h3>
             <ul>
               {skills.map((skill) => {
-                return <li key={skill.key}>{skill.skill}</li>}
-              )}
+                return (
+                skill.skill !== '' &&
+                <li key={skill.key}>{skill.skill} <button onClick = {() => this.props.onClick(skill.key)}>Delete</button> </li> 
+                )
+              })}
             </ul>
+            <button onClick = {this.props.handleAddSkill}>Add another skill</button>
           </div>
           :
-          <div></div>
+          <button onClick = {this.props.handleAddSkill}>Add a skill</button>
           }
         </div>
     )
