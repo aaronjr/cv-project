@@ -9,17 +9,23 @@ export default class ShowExp extends Component {
     const experience = this.props.experience
 
     return (
-        <>
-          { !experience  && <h3>Experience</h3>}
-          {experience.map((exp) => {
-            return <ul key={exp.key}>
-              <li>Employer: {exp.name} {exp.yearFrom} - {exp.yearTo}</li>
-              <li>Title: {exp.title}</li>
-              <li>Job description: {exp.description}</li>
-            </ul>
-          })
+      
+        <div>
+          {
+            experience[0].employer !== '' &&
+            <div>
+            <h3>Experience</h3>
+              {experience.map((exp) => {
+                return (
+                <ul key={exp.key}>
+                  <li>Employer: {exp.employer} ({exp.yearFrom} - {exp.yearTo})</li>
+                  <li>Title: {exp.title}</li>
+                  <li>Job description: {exp.description}</li>
+                </ul>)
+              })}
+            </div>
           }
-        </>
+        </div>
     )
   }
 }

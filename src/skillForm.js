@@ -19,7 +19,8 @@ export default class SkillForm extends Component {
   handleSubmit(bool){
     this.props.onSubmit(this.state, bool)
     this.setState({
-      skill: ''
+      skill: '',
+      key: uniqid()
     })
   }
 

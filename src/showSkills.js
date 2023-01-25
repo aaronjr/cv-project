@@ -9,12 +9,21 @@ export default class ShowSkills extends Component {
     const skills = this.props.skills
 
     return (
-        <>
-          {skills || <h3>Skills</h3>}
-          <ul>
-            {skills.map((skill) => <li key={skill.key}>{skill.skill}</li> )}
-           </ul>
-        </>
+        <div>
+          { 
+          skills.length !== 0 ?
+          <div>
+            <h3>Skills</h3>
+            <ul>
+              {skills.map((skill) => {
+                return <li key={skill.key}>{skill.skill}</li>}
+              )}
+            </ul>
+          </div>
+          :
+          <div></div>
+          }
+        </div>
     )
   }
 }

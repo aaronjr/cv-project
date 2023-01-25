@@ -40,27 +40,23 @@ class App extends Component {
   }
 
   handleSubmitEdu = (details, bool) => {
-    if(!( details[0] !== '')){
-      this.setState({
-      education: [...this.state.education, details]
-      })
-    }
+    this.setState({
+    education: [...this.state.education, details]
+    })
     bool && this.setState({slide : this.state.slide + 1})
   }
 
   handleSubmitExp = (details, bool) => {
-    if(!( details[0] !== '')){
-      this.setState({
-      experience: [...this.state.experience, details],
-      })
-    }
+    this.setState({
+    experience: [...this.state.experience, details],
+    })
     bool && this.setState({slide : this.state.slide + 1})
   }
 
   handleSubmitSkill = (details, bool) => {
-    if(!( details.skill[0] !== '')){
+    if(details.skill !== ''){
       this.setState({
-      skills: [...this.state.skills, details],
+        skills: [...this.state.skills, details],
       })
     }
     bool && this.setState({slide : this.state.slide + 1})
@@ -71,7 +67,7 @@ class App extends Component {
     const slide = this.state.slide
 
     return (
-      <div>
+      <div className="container">
         {slide === 0 ? 
           // General information form
           <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
