@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InfoForm from "./infoForm"
 import EduForm from "./eduForm"
-import ShowEdu from "./showEdu"
 import ExpForm from "./expForm"
 import SkillForm from "./skillForm"
 import './index.css';
@@ -24,11 +23,19 @@ class App extends Component {
       experience : [],
       skills : [],
       slide: 0,
+      shouldSlide : true,
       editEdu: null,
       editExp: null
     };
   }
 
+  // control which page is shown
+  slide = () => {
+    this.state.slide >= 3 && this.setState({shouldSlide: 0})
+    this.state.shouldSlide === true ? this.setState({ slide: this.state.slide + 1}) : this.setState({ slide: 4})
+  }
+
+  // take the input and update the state
   handleSubmitInfo = (details) => {
     this.setState({
       general : {
@@ -36,27 +43,33 @@ class App extends Component {
       email : details.email,
       phone : details.phone,
       bio : details.bio  
-      },
-      slide : this.state.slide + 1
+      }
     })
+
+    // change slide
+    this.slide()
   }
 
   handleSubmitEdu = (details, bool) => {
-    // check for exsitiing key, delete and add again but with the update info
+    // check for exsitiing key, delete but and add again with the updated info
     // this is due to the edit button
     const update = this.state.education.filter((edu) => edu.key !== details.key)
     const newLessons = details.lessons
-    const education = this.state.education.filter((edu) => edu.key == details.key)
+    const education = this.state.education.filter((edu) => edu.key === details.key)
     let oldLessons = ''
     if(education.length > 0){
       oldLessons = education[0].lessons
-      details.lessons = [...details.lessons, oldLessons]
+      details.lessons = [...newLessons, ...oldLessons]
     }
+    // remce editEdu so the form loads as empty again
+    // add education to state
     this.setState({
       education: [...update, details],
       editEdu: null
     })
-    bool && this.setState({slide : this.state.slide + 1})
+    // check if a new form should be loaded or a new slide
+    // empty form is handled in the component
+    bool && this.slide()
   }
 
   handleSubmitExp = (details, bool) => {
@@ -67,29 +80,39 @@ class App extends Component {
       experience: [...update, details],
       editExp: null
     })
-    bool && this.setState({slide : this.state.slide + 1})
+    // check if a new form should be loaded or a new slide
+    // empty form is handled in the component
+    bool && this.slide()
   }
 
   handleSubmitSkill = (details, bool) => {
+    // dont add blank skill
     if(details.skill !== ''){
       this.setState({
+        // append to array
         skills: [...this.state.skills, details],
       })
     }
-    bool && this.setState({slide : this.state.slide + 1})
+    // check if a new form should be loaded or a new slide
+    // empty form is handled in the component
+    bool && this.slide()
   }
 
   handleEditEdu = (key) => {
+    // update info in state, so it can be passed into the form, for editing a section
     const editEdu = this.state.education.filter((edu)=> edu.key === key )
     this.setState({
+      // set slide for this form
       slide: 1,
       editEdu:  editEdu.length === 0 ? null : editEdu
     })
   }
 
   handleEditExp = (key) => {
+    // update info in state, so it can be passed into the form, for editing a section
     let editExp = this.state.experience.filter((exp)=> exp.key === key )
     this.setState({
+      // set slide for this form
       slide: 2,
       editExp: editExp.length === 0 ? null : editExp
     })
@@ -97,21 +120,25 @@ class App extends Component {
 
   handleEditGen = () => {
     this.setState({
+      // set slide for this form
       slide: 0,
     })
   }
 
   handleDelete = (location, key) => {
+    // delete function for many cases, just check key against user request
     console.log(location, key)
     const update = this.state[`${location}`].filter((a) => a.key !== key)
     this.setState({
       [`${location}`]: [...update],
+      // set slide for this form
       slide: 4
     })
   }
 
   handleAddSkill = () => {
     this.setState({
+       // set slide for this form
       slide:3
     })
   }
@@ -123,17 +150,20 @@ class App extends Component {
     const school = this.state.education.filter((edu) => edu.key === eduKey)
     // remove chosen lesson from this education
     const list = school[0].lessons.filter(lesson => lesson.key !== lessonKey)
-   
+    // set this school to new lesson list
     school[0].lessons = [...list]
+    // add all other educaitons and this updated one
     this.setState({
       education: [...notSchool, school[0]]
     })
   }
 
   render() {
+    // current state
     const general = this.state
     const slide = this.state.slide
 
+    // load correct component based on which slide.
     return (
       <div className="container">
         {slide === 0 ? 

@@ -42,3 +42,9 @@ button{
 label{
   padding-top: 5px;
 }
+
+@media print {
+  button {
+    display: none;
+  }
+}
