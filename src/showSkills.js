@@ -18,7 +18,7 @@ export default class ShowSkills extends Component {
               {skills.map((skill) => {
                 return (
                 skill.skill !== '' &&
-                <li key={skill.key}>{skill.skill} <button onClick = {() => this.props.onClick(skill.key)}>Delete</button> </li> 
+                <li key={skill.key}>{skill.skill} <button onClick = {() => this.props.delete('skills', skill.key)}>Delete</button> </li> 
                 )
               })}
             </ul>

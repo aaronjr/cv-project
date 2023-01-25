@@ -7,11 +7,9 @@ export default class ShowEdu extends Component {
 
   render(){
     const education = this.props.education
-
     return (
         <div>
         {
-          education[0].schoolName !== '' ?
           <div>
           <h3>Education</h3>
           {education.map((edu) => {
@@ -23,15 +21,15 @@ export default class ShowEdu extends Component {
                 <li>To: {edu.yearTo}</li>
                 <li>Lessons: </li>
                 <ul>
-                  {edu.lessons.map((lesson) => <li key={lesson.key}>{lesson.grade} {lesson.name}</li>)}
+                  {edu.lessons.map((lesson) => <li key={lesson.key}>{lesson.grade} {lesson.name} <button onClick = {() => this.props.deleteLesson(edu.key, lesson.key)}>Delete lesson</button> </li>)}
                 </ul>
                 <button onClick = {() => this.props.onClick(edu.key)}>Edit</button>
+                <button onClick = {() => this.props.delete('education', edu.key)}>Delete</button>
               </ul>
           )
           })}
+          <button onClick = {() => this.props.onClick(0)}>Add a school</button>
           </div>
-          :
-          <button onClick = {() => this.props.onClick()}>Add a school</button>
         }
         </div>
     )

@@ -5,16 +5,16 @@ export default class ExpForm extends Component {
   constructor(props) {
     super(props);
 
-    const editExp = this.props.editExp && this.props.editExp[0]
-
-    this.props.editExp ?
+    const editExp = this.props.editExp === null ? null :  this.props.editExp[0]
+    
+    this.props.editExp !== null ?
     this.state = {
       key: editExp.key,
       employer : editExp.employer,
       title: editExp.title,
       yearFrom: editExp.yearFrom,
       yearTo: editExp.yearTo,
-      description: editExp.yearFrom
+      description: editExp.description
     }
     :
     this.state = {

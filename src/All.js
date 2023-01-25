@@ -18,9 +18,9 @@ export default class All extends Component {
     return (
       <div>
         <ShowGeneral general = {general} onClick = {this.props.handleEditGen} />
-        <ShowEdu education = {education} onClick = {this.props.handleEditEdu} />
-        <ShowExp experience = {experience} onClick = {this.props.handleEditExp} />
-        <ShowSkills skills = {skills} onClick = {this.props.handleDeleteSkill} handleAddSkill = {this.props.handleAddSkill}/>
+        <ShowEdu education = {education} deleteLesson = {this.props.deleteLesson}  delete = {this.props.handleDelete} onClick = {this.props.handleEditEdu} />
+        <ShowExp experience = {experience} delete = {this.props.handleDelete} onClick = {this.props.handleEditExp} />
+        <ShowSkills skills = {skills} delete = {this.props.handleDelete} handleAddSkill = {this.props.handleAddSkill}/>
       </div>
     )
   }

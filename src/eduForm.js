@@ -5,9 +5,9 @@ export default class EduForm extends Component {
   constructor(props) {
     super(props);
 
-    const editEdu = this.props.editEdu && this.props.editEdu[0]
-    
-    this.props.editEdu ?
+    const editEdu = this.props.editEdu === null ? null : this.props.editEdu[0]
+
+    this.props.editEdu !== null ?
     this.state = {
       key: editEdu.key,
       schoolName: editEdu.schoolName,

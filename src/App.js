@@ -26,7 +26,6 @@ class App extends Component {
       slide: 0,
       editEdu: null,
       editExp: null
-
     };
   }
 
@@ -46,9 +45,16 @@ class App extends Component {
     // check for exsitiing key, delete and add again but with the update info
     // this is due to the edit button
     const update = this.state.education.filter((edu) => edu.key !== details.key)
+    const newLessons = details.lessons
+    const education = this.state.education.filter((edu) => edu.key == details.key)
+    let oldLessons = ''
+    if(education.length > 0){
+      oldLessons = education[0].lessons
+      details.lessons = [...details.lessons, oldLessons]
+    }
     this.setState({
-    education: [...update, details],
-    editEdu: null
+      education: [...update, details],
+      editEdu: null
     })
     bool && this.setState({slide : this.state.slide + 1})
   }
@@ -77,15 +83,15 @@ class App extends Component {
     const editEdu = this.state.education.filter((edu)=> edu.key === key )
     this.setState({
       slide: 1,
-      editEdu: editEdu
+      editEdu:  editEdu.length === 0 ? null : editEdu
     })
   }
 
   handleEditExp = (key) => {
-    const editExp = this.state.experience.filter((exp)=> exp.key === key )
+    let editExp = this.state.experience.filter((exp)=> exp.key === key )
     this.setState({
       slide: 2,
-      editExp: editExp
+      editExp: editExp.length === 0 ? null : editExp
     })
   }
 
@@ -95,11 +101,11 @@ class App extends Component {
     })
   }
 
-  handleDeleteSkill = (key) => {
-    console.log(key)
-    const update = this.state.skills.filter((skill) => skill.key !== key)
+  handleDelete = (location, key) => {
+    console.log(location, key)
+    const update = this.state[`${location}`].filter((a) => a.key !== key)
     this.setState({
-      skills: [...update],
+      [`${location}`]: [...update],
       slide: 4
     })
   }
@@ -107,6 +113,20 @@ class App extends Component {
   handleAddSkill = () => {
     this.setState({
       slide:3
+    })
+  }
+
+  deleteLesson = (eduKey, lessonKey) => {
+    // list of educations that arent being edited
+    const notSchool = this.state.education.filter((edu) => edu.key !== eduKey)
+    // chosen education
+    const school = this.state.education.filter((edu) => edu.key === eduKey)
+    // remove chosen lesson from this education
+    const list = school[0].lessons.filter(lesson => lesson.key !== lessonKey)
+   
+    school[0].lessons = [...list]
+    this.setState({
+      education: [...notSchool, school[0]]
     })
   }
 
@@ -134,7 +154,7 @@ class App extends Component {
           :
           slide === 4 &&
           // All gathered information
-          <All general = {general} handleAddSkill = {this.handleAddSkill} handleDeleteSkill = {this.handleDeleteSkill} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
+          <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
         }
       </div>
     );
