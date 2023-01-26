@@ -7,10 +7,16 @@
   --background: #557a95d4;
 }
 
+.PDF{
+  background-color: #8ec48d;
+  border-color: white;
+}
+
 .header{
   font-size: x-large;
   background-color: white;
   width: 100vw;
+  place-self: flex-start;
 }
 
 body {
@@ -22,6 +28,7 @@ body {
 
 #root{
   display: grid;
+  grid-template-rows: 120px 1fr;
   place-items: center;
   min-height: 100vh;
   min-width: 100vw;
@@ -52,6 +59,7 @@ textarea{
 h3{
   margin-top: 0px;
   margin-bottom: .5rem;
+  text-decoration: underline;
 }
 
 button{
@@ -197,7 +205,10 @@ li{
 }
 
 @media print {
-
+  #root{
+    display: flex;
+    flex-direction: column;
+  }
   .header{
     display: none;
   }

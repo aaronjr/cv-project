@@ -15,6 +15,7 @@ export default class All extends Component {
     return (
       <div>
         <h1 className="CV">CV</h1>
+        <button className="PDF" onClick={() => window.print()}>Create PDF</button>
         <ShowGeneral general = {general} onClick = {this.props.handleEditGen} />
         <ShowEdu education = {education} deleteLesson = {this.props.deleteLesson}  delete = {this.props.handleDelete} onClick = {this.props.handleEditEdu} />
         <ShowExp experience = {experience} delete = {this.props.handleDelete} onClick = {this.props.handleEditExp} />

@@ -169,33 +169,48 @@ class App extends Component {
       <>
         {slide === 0 ? 
           // General information form
+          <>
+          <Header />
           <div className="formContainer">
             <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
           </div>
+          </>
           : 
           slide === 1 ?
           // Education form
+          <>
+          <Header />
           <div className="formContainer">
             <EduForm onSubmit = {this.handleSubmitEdu} editEdu = {this.state.editEdu} />
           </div>
+          </>
           : 
           slide === 2 ?
           // Employment form
+          <>
+          <Header />
           <div className="formContainer">
             <ExpForm onSubmit = {this.handleSubmitExp} editExp = {this.state.editExp}/>
           </div>
+          </>
           :
           slide === 3 ?
           // Skills form
+          <>
+          <Header />
           <div className="formContainer">
             <SkillForm onSubmit = {this.handleSubmitSkill}/>
           </div>
+          </>
           :
           slide === 4 &&
           // All gathered information
-          <div className="all">
-            <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
-          </div>
+          <>
+            <Header />
+            <div className="all">
+              <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
+            </div>
+          </>
         }
       </>
     );
