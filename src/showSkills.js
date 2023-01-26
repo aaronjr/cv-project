@@ -1,10 +1,9 @@
 import React, { Component } from "react";
+import Icon from '@mdi/react';
+import { mdiDelete } from '@mdi/js';
 
 export default class ShowSkills extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+  
   render(){
     const skills = this.props.skills
     // handlers passed from App.js.
@@ -14,20 +13,22 @@ export default class ShowSkills extends Component {
         <div>
           { 
           skills.length !== 0 ?
-          <div>
+          <div className="eachCategory">
             <h3>Skills</h3>
-            <ul>
+            <ul className="holder skills">
               {skills.map((skill) => {
                 return (
                 skill.skill !== '' &&
-                <li key={skill.key}>{skill.skill} <button onClick = {() => this.props.delete('skills', skill.key)}>Delete</button> </li> 
+                <li>{skill.skill}<Icon className="bin" path={mdiDelete} size={.90} onClick = {() => this.props.delete('skills', skill.key)}/></li>
                 )
               })}
             </ul>
-            <button onClick = {this.props.handleAddSkill}>Add another skill</button>
+            <button className="add" onClick = {this.props.handleAddSkill}>Add another skill</button>
           </div>
           :
-          <button onClick = {this.props.handleAddSkill}>Add a skill</button>
+          <div className="eachCategory">
+            <button className="add" onClick = {this.props.handleAddSkill}>Add a skill</button>
+          </div>
           }
         </div>
     )

@@ -71,7 +71,7 @@ export default class EduForm extends Component {
       // buttons will either show a blank form or move foward
       <div>
         <form>
-          <label htmlFor="name">School name</label>
+          <label htmlFor="name">Place of education</label>
             <input
               onChange={(e) => this.setState({schoolName : e.target.value})}
               value={details.schoolName || ''}
@@ -96,23 +96,23 @@ export default class EduForm extends Component {
               this.setState({lessons: [...this.state.lessons, this.state.lesson]})
               this.setState({lesson: {name:'', key: uniqid(), grade:'' }}) 
             }}>Add lesson</button>
-            <label htmlFor="yearFrom">From which year?</label>
+            <label htmlFor="yearFrom">From which year?<span className="dates">yyyy</span></label>
             <input
               onChange = {(e) => this.setState({yearFrom : e.target.value})}
               value={details.yearFrom || ''}
-              type="text"
+              type="number"
               id="yearFrom"
             />
-            <label htmlFor="yearTo">Until which year?</label>
+            <label htmlFor="yearTo">Until which year?<span className="dates">yyyy</span></label>
             <input
               onChange={(e) => this.setState({yearTo : e.target.value})}
               value={details.yearTo || ''}
-              type="text"
+              type="number"
               id="yearTo"
             />
             <div className="buttonHolder">
-              <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add another</button>
-              <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Save</button>
+              <button type='button' onClick = {this.prevent, () => this.handleSubmit(false)}>Add education</button>
+              <button type='button' onClick = {this.prevent, () => this.handleSubmit(true)}>Save</button>
             </div>
         </form>
       </div>

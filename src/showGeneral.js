@@ -7,10 +7,10 @@ export default class ShowGeneral extends Component {
     // display data as expected
     return (
         <div className="general">
-          <p>Name: {general.name}</p>
-          <p>Email: {general.email}</p>
-          <p>Contact number: {general.phone}</p>
-          <p className="pbioheader">Personal bio: </p>
+          <h3>Personal</h3>
+          <p>{general.name}</p>
+          <p>{general.email}</p>
+          <p>{general.phone}</p>
           <p className="bio">{general.bio}</p>
           <button onClick = {this.props.onClick}>Edit</button>
         </div>

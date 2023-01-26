@@ -52,7 +52,7 @@ export default class InfoForm extends Component {
               type="text"
               id="bio"
             />
-            <button type='submit' onClick = {this.props.handleClick}> Submit </button>
+            <button type='submit' onClick = {this.props.handleClick}>Save</button>
         </form>
       </div>
     );

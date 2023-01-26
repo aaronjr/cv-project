@@ -8,20 +8,20 @@ export default class ShowExp extends Component {
     return (
         <div>
           {
-            <div>
+            <div className="eachCategory">
             <h3>Experience</h3>
-              {experience.map((exp) => {
+              {experience.sort((a, b) => b.yearTo - a.yearTo).map((exp) => {
                 return (
                 exp.employer !== '' &&
-                <ul className = "experienceHolder" key={exp.key}>
-                  <li style={{fontWeight:'bold'}}>{exp.employer} <span className="dates">{exp.yearFrom} - {exp.yearTo}</span></li>
+                <ul className = "holder" key={exp.key}>
+                  <li className="titleInfo">{exp.employer} <span className="dates">{exp.yearFrom} - {exp.yearTo}</span></li>
                   <li style={{fontStyle:'italic', marginBottom:'5px'}}>{exp.title}</li>
-                  <li>Job description: {exp.description}</li>
+                  <li className="bio">{exp.description}</li>
                   <button className="edit" onClick = {() => this.props.onClick(exp.key)}>Edit</button>
                   <button className="del" onClick = {() => this.props.delete('experience', exp.key)}>Delete</button>
                 </ul>)
               })}
-              <button onClick = {() => this.props.onClick(0)}>Add a experience</button>
+              <button className="add" onClick = {() => this.props.onClick(0)}>Add an experience</button>
             </div>
           }
         </div>

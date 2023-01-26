@@ -94,8 +94,8 @@ export default class ExpForm extends Component {
               type="text"
               id="Description"
             />
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add another job</button>
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Submit</button>
+            <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add experience</button>
+            <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Save</button>
         </form>
       </div>
     );
