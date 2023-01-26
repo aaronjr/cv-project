@@ -165,28 +165,38 @@ class App extends Component {
 
     // load correct component based on which slide.
     return (
-      <div className="container">
+      <>
         {slide === 0 ? 
           // General information form
-          <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+          <div className="formContainer">
+            <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+          </div>
           : 
           slide === 1 ?
           // Education form
-          <EduForm onSubmit = {this.handleSubmitEdu} editEdu = {this.state.editEdu} />
+          <div className="formContainer">
+            <EduForm onSubmit = {this.handleSubmitEdu} editEdu = {this.state.editEdu} />
+          </div>
           : 
           slide === 2 ?
           // Employment form
-          <ExpForm onSubmit = {this.handleSubmitExp} editExp = {this.state.editExp}/>
+          <div className="formContainer">
+            <ExpForm onSubmit = {this.handleSubmitExp} editExp = {this.state.editExp}/>
+          </div>
           :
           slide === 3 ?
           // Skills form
-          <SkillForm onSubmit = {this.handleSubmitSkill}/>
+          <div className="formContainer">
+            <SkillForm onSubmit = {this.handleSubmitSkill}/>
+          </div>
           :
           slide === 4 &&
           // All gathered information
-          <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
+          <div className="all">
+            <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
+          </div>
         }
-      </div>
+      </>
     );
   }
 }

@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 
 export default class ShowExp extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   render(){
     const experience = this.props.experience
@@ -16,12 +13,12 @@ export default class ShowExp extends Component {
               {experience.map((exp) => {
                 return (
                 exp.employer !== '' &&
-                <ul key={exp.key}>
-                  <li>Employer: {exp.employer} {exp.yearFrom} - {exp.yearTo}</li>
-                  <li>Title: {exp.title}</li>
+                <ul className = "experienceHolder" key={exp.key}>
+                  <li style={{fontWeight:'bold'}}>{exp.employer} <span className="dates">{exp.yearFrom} - {exp.yearTo}</span></li>
+                  <li style={{fontStyle:'italic', marginBottom:'5px'}}>{exp.title}</li>
                   <li>Job description: {exp.description}</li>
-                  <button onClick = {() => this.props.onClick(exp.key)}>Edit</button>
-                  <button onClick = {() => this.props.delete('experience', exp.key)}>Delete</button>
+                  <button className="edit" onClick = {() => this.props.onClick(exp.key)}>Edit</button>
+                  <button className="del" onClick = {() => this.props.delete('experience', exp.key)}>Delete</button>
                 </ul>)
               })}
               <button onClick = {() => this.props.onClick(0)}>Add a experience</button>

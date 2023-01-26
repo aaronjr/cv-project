@@ -46,7 +46,7 @@ export default class InfoForm extends Component {
               id="phone"
             />
             <label htmlFor="bio">Bio</label>
-            <input
+            <textarea
               onChange={(e) => this.setState({bio : e.target.value})}
               value={details.bio || ''}
               type="text"

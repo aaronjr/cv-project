@@ -110,8 +110,10 @@ export default class EduForm extends Component {
               type="text"
               id="yearTo"
             />
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add another school</button>
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Submit</button>
+            <div className="buttonHolder">
+              <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add another</button>
+              <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Save</button>
+            </div>
         </form>
       </div>
     );

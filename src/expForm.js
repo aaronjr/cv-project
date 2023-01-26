@@ -88,7 +88,7 @@ export default class ExpForm extends Component {
               id="yearTo"
             />
             <label htmlFor="description">Description</label>
-            <input
+            <textarea
               onChange={(e) => this.setState({description : e.target.value})}
               value={details.description || ''}
               type="text"

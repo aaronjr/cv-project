@@ -5,9 +5,6 @@ import ShowExp from "./showExp"
 import ShowSkills from "./showSkills"
 
 export default class All extends Component {
-  constructor(props){
-    super(props)
-  }
 
   render() {
     const general = this.props.general.general
@@ -17,6 +14,7 @@ export default class All extends Component {
 
     return (
       <div>
+        <h1>CV</h1>
         <ShowGeneral general = {general} onClick = {this.props.handleEditGen} />
         <ShowEdu education = {education} deleteLesson = {this.props.deleteLesson}  delete = {this.props.handleDelete} onClick = {this.props.handleEditEdu} />
         <ShowExp experience = {experience} delete = {this.props.handleDelete} onClick = {this.props.handleEditExp} />

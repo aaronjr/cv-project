@@ -1,3 +1,7 @@
+:root{
+  --sectionColor: rgba(242, 242, 242, 0.285);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,16 +11,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
 #root{
   display: grid;
   place-items: center;
-  height: 100vh;
-  width: 100vw;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: beige;
 }
 
 form{
@@ -26,9 +26,18 @@ form{
 
 input{
   border-radius: .5rem;
-  border-color: black;
   border: solid black 1px;
   padding-left: 10px;
+  height: 1.5rem;
+  min-width: 40vw;
+}
+
+textarea{
+  border-radius: .5rem;
+  border: solid black 1px;
+  padding: 5px;
+  min-width: 40vw;
+  height: 10vw;
 }
 
 button{
@@ -43,8 +52,121 @@ label{
   padding-top: 5px;
 }
 
+.formContainer{
+  background-color: rgb(208, 163, 163);
+  padding: 50px;
+  border-radius: .5rem;
+}
+
+.formContainer button{
+  white-space:nowrap;
+  width: min-content;
+  align-self: center;
+}
+
+h1{
+  text-align: center;
+}
+
+.all{
+  background-color: white;
+  margin: 30px;
+  padding: 10px;
+  width: 50vw;
+  border-radius: .5rem;
+  box-shadow: 5px 5px 5px grey;
+}
+
+.general{
+  padding: 10px;
+  padding-right: 100px;
+  background-color:var(--sectionColor);
+  border-radius: .5rem;
+  position: relative;
+}
+.general > p{
+  margin-top: 0px;
+}
+
+.general > button {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-0%, -50%);
+}
+
+.pbioheader{
+  margin-bottom: 5px;
+}
+
+.educationHolder,
+.experienceHolder{
+  position: relative;
+  list-style: none;
+}
+
+.edit{
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translate(0%, -50%);
+}
+
+.del{
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0%, -50%);
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+.dates{
+  margin-left: 10px;
+  font-style: italic;
+  font-weight: 200;
+}
+
+li{
+  position: relative;
+}
+
+.bin{
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  bottom: -10%;
+  left: -3.5%;
+}
+.alledu{
+  display: flex;
+  flex-direction: column;
+}
+.addEdu{
+  align-self: center;
+}
+
+.bio{
+  white-space: pre-wrap;
+}
+
+.buttonHolder{
+  align-self: center;
+  display: flex;
+}
+
 @media print {
-  button {
+  button,
+  .bin {
     display: none;
+  }
+
+  .all{
+    height: 100vh;
+    width: 100vw;
+    border-radius: none;
+    box-shadow: none
   }
 }
