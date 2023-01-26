@@ -204,6 +204,31 @@ li{
   font-weight: bold;
 }
 
+@media (min-width: 300px) {
+  .all{
+    margin: 30px 0px;
+    width: 85vw
+  }
+}
+
+@media (min-width: 800px) {
+  .all{
+    width: 80vw
+  }
+}
+
+@media (min-width: 1000px) {
+  .all{
+    width: 70vw
+  }
+}
+
+@media (min-width: 1200px) {
+  .all{
+    width: 60vw
+  }
+}
+
 @media print {
   #root{
     display: flex;
