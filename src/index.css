@@ -1,8 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
 :root{
-  --sectionColor: rgba(242, 242, 242, 0.285);
-  --formColor:red;
+  --outline: #7395AE;
+  --hover: #8dadc4;
+  --formColor: white;
+  --background: #557a95d4;
+}
+
+.header{
+  font-size: x-large;
+  background-color: white;
+  width: 100vw;
 }
 
 body {
@@ -17,7 +25,7 @@ body {
   place-items: center;
   min-height: 100vh;
   min-width: 100vw;
-  background-color: beige;
+  background-color: var(--background)
 }
 
 form{
@@ -27,7 +35,7 @@ form{
 
 input{
   border-radius: .5rem;
-  border: solid black 1px;
+  border: solid var(--outline) 1px;
   padding-left: 10px;
   height: 1.5rem;
   min-width: 40vw;
@@ -35,7 +43,7 @@ input{
 
 textarea{
   border-radius: .5rem;
-  border: solid black 1px;
+  border: solid var(--outline) 1px;
   padding: 5px;
   min-width: 40vw;
   height: 10vw;
@@ -50,8 +58,13 @@ button{
   padding: 10px;
   margin: 10px;
   border-radius: .5rem;
-  border: solid black 1px;
-  border-color: black;
+  border: solid var(--outline) 1px;
+  background-color: var(--outline);
+  color: white;
+}
+
+button:hover{
+  background-color: var(--hover);
 }
 
 label{
@@ -70,7 +83,12 @@ label{
   align-self: center;
 }
 
+.CV{
+  display: none;
+}
+
 h1{
+  color: var(--background);
   text-align: center;
 }
 
@@ -80,7 +98,7 @@ h1{
   padding: 10px;
   width: 50vw;
   border-radius: .5rem;
-  box-shadow: 5px 5px 5px grey;
+  box-shadow: 5px 5px 20px black;
 }
 
 .holder{
@@ -97,7 +115,6 @@ h1{
 
 .eachCategory{
   padding: 10px;
-  background-color:var(--sectionColor);
   display: flex;
   flex-direction: column;
 }
@@ -105,7 +122,6 @@ h1{
 .general{
   padding: 10px;
   padding-right: 100px;
-  background-color:var(--sectionColor);
   border-radius: .5rem;
   position: relative;
 }
@@ -182,16 +198,26 @@ li{
 
 @media print {
 
+  .header{
+    display: none;
+  }
   button,
   .bin {
     display: none;
   }
-
+  .general h3{
+    margin-bottom: 10px;
+  }
   .all{
     height: 100vh;
     width: 100vw;
     border-radius: none;
     box-shadow: none
+  }
+
+  .CV{
+    display: block;
+    text-align: center;
   }
 
   .skills{

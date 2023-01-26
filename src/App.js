@@ -3,6 +3,7 @@ import InfoForm from "./infoForm"
 import EduForm from "./eduForm"
 import ExpForm from "./expForm"
 import SkillForm from "./skillForm"
+import Header from "./header"
 import './index.css';
 import All from "./All"
 
