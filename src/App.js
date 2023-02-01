@@ -8,6 +8,7 @@ import "./index.css";
 import { All } from "./All";
 
 export const App = () => {
+  // initiate states
   const [appState, setAppState] = useState({
     general: {
       name: "",
