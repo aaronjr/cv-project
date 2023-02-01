@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import InfoForm from "./infoForm"
-import EduForm from "./eduForm"
+import {EduForm} from "./eduForm"
 import ExpForm from "./expForm"
 import SkillForm from "./skillForm"
 import Header from "./header"
@@ -128,7 +128,6 @@ class App extends Component {
 
   handleDelete = (location, key) => {
     // delete function for many cases, just check key against user request
-    console.log(location, key)
     const update = this.state[`${location}`].filter((a) => a.key !== key)
     this.setState({
       [`${location}`]: [...update],

@@ -1,54 +1,60 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { useEffect } from "react";
 import uniqid from "uniqid";
 
-export default class EduForm extends Component {
-  constructor(props) {
-    super(props);
+export const EduForm = props => {
 
-    // check for editEdu (only needed for editing educations.)
-    const editEdu = this.props.editEdu === null ? null : this.props.editEdu[0]
+  const [editEdu, setEditEdu] = useState(null)
 
-    // set with old details or blank
-    this.props.editEdu !== null ?
-    this.state = {
-      key: editEdu.key,
-      schoolName: editEdu.schoolName,
-      lesson: {
-        name: '',
-        grade: '',
-        key: uniqid()
-      },
-      lessons: [],
-      yearFrom: editEdu.yearFrom,
-      yearTo: editEdu.yearTo,
-    }
-    :
-    this.state = {
+  const [eduState, setEduState] = useState({
+    key: uniqid(),
+    schoolName: "",
+    lesson: {
+      name: "",
+      grade: "",
       key: uniqid(),
-      schoolName : '',
-      lesson: {
-        name: '',
-        grade: '',
-        key: uniqid()
-      },
-      lessons: [],
-      yearFrom: '',
-      yearTo:'',
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
+    },
+    lessons: [],
+    yearFrom: "",
+    yearTo: "",
+  });
 
+   // check for editEdu (only needed for editing educations.)
+  
+  useEffect(() => {
+    props.editEdu === null ? setEditEdu(null) : setEditEdu(props.editEdu[0]);
+  }, [props.editEdu]);
+
+  useEffect(() => {
+    if (editEdu !== null) {
+      setEduState({
+        key: editEdu.key,
+        schoolName: editEdu.schoolName,
+        lesson: {
+          name: "",
+          grade: "",
+          key: uniqid(),
+        },
+        lessons: [],
+        yearFrom: editEdu.yearFrom,
+        yearTo: editEdu.yearTo,
+      });
+    }
+    
+  }, [editEdu]);
+ 
   // function to prevent default, as not accesible inside a function
-  prevent(e){
+  const prevent = (e) => {
     e.preventDefault()
   }
+
   // will pass the state back to app
   // reset this state to all blank
   // bool with either show user new form or 
   // progress to other forms. 
-  handleSubmit(bool){
-    this.props.onSubmit(this.state, bool)
-    this.setState({
+  const handleSubmit = (bool) => {
+    props.onSubmit(eduState, bool)
+    setEduState({
       key: uniqid(),
       schoolName : '',
       lesson: {
@@ -62,60 +68,89 @@ export default class EduForm extends Component {
     })
   }
 
-  render() {
-    const details = this.state
+  const normalChange = (e) => {
+    setEduState({...eduState, [e.target.name] : e.target.value})
+  }
 
-    return (
-      // on change will update into state
-      // value is either the information or blank if blank
-      // buttons will either show a blank form or move foward
-      <div>
-        <form>
-          <label htmlFor="name">Place of education</label>
-            <input
-              onChange={(e) => this.setState({schoolName : e.target.value})}
-              value={details.schoolName || ''}
-              type="text"
-              id="name"
-            />
-            <label htmlFor="lessons">Lesson</label>
-            <input
-              onChange={(e) => this.setState({lesson: {name: e.target.value, grade: this.state.lesson.grade, key: this.state.lesson.key,}})}
-              value={details.lesson.name || ''}
-              type="text"
-              id="lessons"
-            />
-            <label htmlFor="grade">Grade</label>
-            <input
-              onChange={(e) => this.setState({lesson: {name: this.state.lesson.name, grade: e.target.value, key: this.state.lesson.key,}})}
-              value={details.lesson.grade || ''}
-              type="text"
-              id="grade"
-            />
-            <button type='button' onClick={() => {
-              this.setState({lessons: [...this.state.lessons, this.state.lesson]})
-              this.setState({lesson: {name:'', key: uniqid(), grade:'' }}) 
-            }}>Add lesson</button>
-            <label htmlFor="yearFrom">From which year?<span className="dates">yyyy</span></label>
-            <input
-              onChange = {(e) => this.setState({yearFrom : e.target.value})}
-              value={details.yearFrom || ''}
-              type="number"
-              id="yearFrom"
-            />
-            <label htmlFor="yearTo">Until which year?<span className="dates">yyyy</span></label>
-            <input
-              onChange={(e) => this.setState({yearTo : e.target.value})}
-              value={details.yearTo || ''}
-              type="number"
-              id="yearTo"
-            />
-            <div className="buttonHolder">
-              <button type='button' onClick = {this.prevent, () => this.handleSubmit(false)}>Add education</button>
-              <button type='button' onClick = {this.prevent, () => this.handleSubmit(true)}>Save</button>
-            </div>
-        </form>
-      </div>
-    );
-  };
+  const lessonChange = (e) => {
+     setEduState({
+       ...eduState,
+       lesson: { ...eduState.lesson, [e.target.name]: e.target.value},
+     });
+  }
+
+  const addLessons = () => {
+    setEduState({
+      ...eduState,
+      lessons: [...eduState.lessons, eduState.lesson],
+      lesson: { name: "", key: uniqid(), grade: "" },
+    });
+  }
+
+  return (
+    <div>
+      <form>
+        <label htmlFor="name">Place of education</label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={eduState.schoolName}
+          name="schoolName"
+          type="text"
+          id="name"
+        />
+        <label htmlFor="lessons">Lesson</label>
+        <input
+          onChange={(e) => lessonChange(e)}
+          value={eduState.lesson.name}
+          name="name"
+          type="text"
+          id="lessons"
+        />
+        <label htmlFor="grade">Grade</label>
+        <input
+          onChange={(e) => lessonChange(e)}
+          value={eduState.lesson.grade}
+          name="grade"
+          type="text"
+          id="grade"
+        />
+        <button
+          type="button"
+          onClick={() => {
+            addLessons();
+          }}
+        >
+          Add lesson
+        </button>
+        <label htmlFor="yearFrom">
+          From which year?<span className="dates">yyyy</span>
+        </label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={eduState.yearFrom}
+          type="number"
+          name="yearFrom"
+          id="yearFrom"
+        />
+        <label htmlFor="yearTo">
+          Until which year?<span className="dates">yyyy</span>
+        </label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={eduState.yearTo}
+          type="number"
+          name="yearTo"
+          id="yearTo"
+        />
+        <div className="buttonHolder">
+          <button type="button" onClick={(prevent, () => handleSubmit(false))}>
+            Add education
+          </button>
+          <button type="button" onClick={(prevent, () => handleSubmit(true))}>
+            Save
+          </button>
+        </div>
+      </form>
+    </div>
+  );
 }
