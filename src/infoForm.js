@@ -1,60 +1,62 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-export default class InfoForm extends Component {
-  constructor(props) {
-    super(props);
+export const InfoForm = props => {
 
-    this.state = {
-      name : props.details.name,
-      email: props.details.email,
-      phone: props.details.phone,
-      bio: props.details.bio
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleSubmit(e){
+   const [info, setInfo] = useState({
+     name: props.state.general.name,
+     email: props.state.general.email,
+     phone: props.state.general.phone,
+     bio: props.state.general.bio,
+   });
+ 
+  const handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state)
+    props.onSubmit(info)
   }
 
-  render() {
-    const details = this.state
-
-    return (
-      <div>
-        <form onSubmit = {this.handleSubmit}>
-          <label htmlFor="name">Name</label>
-            <input
-              onChange={(e) => this.setState({name : e.target.value})}
-              value={details.name || ''}
-              type="text"
-              id="name"
-            />
-            <label htmlFor="email">E-mail</label>
-            <input
-              onChange={(e) => this.setState({email : e.target.value})}
-              value={details.email || ''}
-              type="text"
-              id="email"
-            />
-            <label htmlFor="phone">Phone number</label>
-            <input
-              onChange={(e) => this.setState({phone : e.target.value})}
-              value={details.phone || ''}
-              type="number"
-              id="phone"
-            />
-            <label htmlFor="bio">Bio</label>
-            <textarea
-              onChange={(e) => this.setState({bio : e.target.value})}
-              value={details.bio || ''}
-              type="text"
-              id="bio"
-            />
-            <button type='submit' onClick = {this.props.handleClick}>Save</button>
-        </form>
-      </div>
-    );
+  const normalChange = (e) => {
+    setInfo({ ...info, [e.target.name]: e.target.value });
   };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={info.name}
+          name={"name"}
+          type="text"
+          id="name"
+        />
+        <label htmlFor="email">E-mail</label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={info.email}
+          name={"email"}
+          type="text"
+          id="email"
+        />
+        <label htmlFor="phone">Phone number</label>
+        <input
+          onChange={(e) => normalChange(e)}
+          value={info.phone}
+          name={"phone"}
+          type="number"
+          id="phone"
+        />
+        <label htmlFor="bio">Bio</label>
+        <textarea
+          onChange={(e) => normalChange(e)}
+          name={"bio"}
+          value={info.bio}
+          type="text"
+          id="bio"
+        />
+        <button type="submit" onClick={props.handleClick}>
+          Save
+        </button>
+      </form>
+    </div>
+  );
 }

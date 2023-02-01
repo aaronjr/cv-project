@@ -1,219 +1,230 @@
-import React, { Component } from "react";
-import InfoForm from "./infoForm"
-import {EduForm} from "./eduForm"
-import ExpForm from "./expForm"
-import SkillForm from "./skillForm"
-import Header from "./header"
-import './index.css';
-import All from "./All"
+import React, { useState } from "react";
+import { InfoForm } from "./infoForm";
+import { EduForm } from "./eduForm";
+import { ExpForm } from "./expForm";
+import { SkillForm } from "./skillForm";
+import { Header } from "./header";
+import "./index.css";
+import { All } from "./All";
+import { useEffect } from "react";
 
+export const App = () => {
+  const [appState, setAppState] = useState({
+    general: {
+      name: "",
+      email: "",
+      phone: "",
+      bio: "",
+    },
+    education: [],
+    experience: [],
+    skills: [],
+    slide: 0,
+    shouldSlide: true,
+    editEdu: null,
+    editExp: null,
+  });
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      general: {
-        name: '',
-        email: '',
-        phone: '',
-        bio: '',
-      }
-      ,
-      education : [],
-      experience : [],
-      skills : [],
-      slide: 0,
-      shouldSlide : true,
-      editEdu: null,
-      editExp: null
-    };
-  }
+  useEffect(() => {}, [appState]);
 
   // control which page is shown
-  slide = () => {
-    this.state.slide >= 3 && this.setState({shouldSlide: 0})
-    this.state.shouldSlide === true ? this.setState({ slide: this.state.slide + 1}) : this.setState({ slide: 4})
-  }
+  const slide = () => {
+    appState.slide >= 3 && setAppState({ ...appState, shouldSlide: false });
+    appState.shouldSlide === true
+      ? setAppState({ ...appState, slide: appState.slide + 1 })
+      : setAppState({ ...appState, slide: 4 });
+    console.log(appState.slide);
+  };
 
   // take the input and update the state
-  handleSubmitInfo = (details) => {
-    this.setState({
-      general : {
-      name : details.name,
-      email : details.email,
-      phone : details.phone,
-      bio : details.bio  
-      }
-    })
-
+  const handleSubmitInfo = (details) => {
+    setAppState({
+      ...appState,
+      general: {
+        name: details.name,
+        email: details.email,
+        phone: details.phone,
+        bio: details.bio,
+      },
+    });
     // change slide
-    this.slide()
-  }
+    slide();
+  };
 
-  handleSubmitEdu = (details, bool) => {
+  const handleSubmitEdu = (details, bool) => {
     // check for exsitiing key, delete but and add again with the updated info
     // this is due to the edit button
-    const update = this.state.education.filter((edu) => edu.key !== details.key)
-    const newLessons = details.lessons
-    const education = this.state.education.filter((edu) => edu.key === details.key)
-    let oldLessons = ''
-    if(education.length > 0){
-      oldLessons = education[0].lessons
-      details.lessons = [...newLessons, ...oldLessons]
+    const update = appState.education.filter((edu) => edu.key !== details.key);
+    const newLessons = details.lessons;
+    const education = appState.education.filter(
+      (edu) => edu.key === details.key
+    );
+    let oldLessons = "";
+    if (education.length > 0) {
+      oldLessons = education[0].lessons;
+      details.lessons = [...newLessons, ...oldLessons];
     }
-    // remce editEdu so the form loads as empty again
+    // remove editEdu so the form loads as empty again
     // add education to state
-    this.setState({
+    setAppState({
+      ...appState,
       education: [...update, details],
-      editEdu: null
-    })
+      editEdu: null,
+    });
     // check if a new form should be loaded or a new slide
     // empty form is handled in the component
-    bool && this.slide()
-  }
+    bool && slide();
+  };
 
-  handleSubmitExp = (details, bool) => {
+  const handleSubmitExp = (details, bool) => {
     // check for exsitiing key, delete and add again but with the update info
     // this is due to the edit button
-    const update = this.state.experience.filter((exp) => exp.key !== details.key)
-    this.setState({
+    const update = appState.experience.filter((exp) => exp.key !== details.key);
+    setAppState({
+      ...appState,
       experience: [...update, details],
-      editExp: null
-    })
+      editExp: null,
+    });
     // check if a new form should be loaded or a new slide
     // empty form is handled in the component
-    bool && this.slide()
-  }
+    bool && slide();
+  };
 
-  handleSubmitSkill = (details, bool) => {
+  const handleSubmitSkill = (details, bool) => {
     // dont add blank skill
-    if(details.skill !== ''){
-      this.setState({
+    if (details.skill !== "") {
+      setAppState({
+        ...appState,
         // append to array
-        skills: [...this.state.skills, details],
-      })
+        skills: [...appState.skills, details],
+      });
     }
     // check if a new form should be loaded or a new slide
     // empty form is handled in the component
-    bool && this.slide()
-  }
+    bool && slide();
+  };
 
-  handleEditEdu = (key) => {
+  const handleEditEdu = (key) => {
     // update info in state, so it can be passed into the form, for editing a section
-    const editEdu = this.state.education.filter((edu)=> edu.key === key )
-    this.setState({
+    const editEdu = appState.education.filter((edu) => edu.key === key);
+    setAppState({
       // set slide for this form
+      ...appState,
       slide: 1,
-      editEdu:  editEdu.length === 0 ? null : editEdu
-    })
-  }
+      editEdu: editEdu.length === 0 ? null : editEdu,
+    });
+  };
 
-  handleEditExp = (key) => {
+  const handleEditExp = (key) => {
     // update info in state, so it can be passed into the form, for editing a section
-    let editExp = this.state.experience.filter((exp)=> exp.key === key )
-    this.setState({
+    let editExp = appState.experience.filter((exp) => exp.key === key);
+    setAppState({
+      ...appState,
       // set slide for this form
       slide: 2,
-      editExp: editExp.length === 0 ? null : editExp
-    })
-  }
+      editExp: editExp.length === 0 ? null : editExp,
+    });
+  };
 
-  handleEditGen = () => {
-    this.setState({
+  const handleEditGen = () => {
+    setAppState({
+      ...appState,
       // set slide for this form
       slide: 0,
-    })
-  }
+    });
+  };
 
-  handleDelete = (location, key) => {
+  const handleDelete = (location, key) => {
     // delete function for many cases, just check key against user request
-    const update = this.state[`${location}`].filter((a) => a.key !== key)
-    this.setState({
+    const update = appState[`${location}`].filter((a) => a.key !== key);
+    setAppState({
+      ...appState,
       [`${location}`]: [...update],
       // set slide for this form
-      slide: 4
-    })
-  }
+      slide: 4,
+    });
+  };
 
-  handleAddSkill = () => {
-    this.setState({
-       // set slide for this form
-      slide:3
-    })
-  }
+  const handleAddSkill = () => {
+    setAppState({
+      ...appState,
+      // set slide for this form
+      slide: 3,
+    });
+  };
 
-  deleteLesson = (eduKey, lessonKey) => {
+  const deleteLesson = (eduKey, lessonKey) => {
     // list of educations that arent being edited
-    const notSchool = this.state.education.filter((edu) => edu.key !== eduKey)
+    const notSchool = appState.education.filter((edu) => edu.key !== eduKey);
     // chosen education
-    const school = this.state.education.filter((edu) => edu.key === eduKey)
+    const school = appState.education.filter((edu) => edu.key === eduKey);
     // remove chosen lesson from this education
-    const list = school[0].lessons.filter(lesson => lesson.key !== lessonKey)
+    const list = school[0].lessons.filter((lesson) => lesson.key !== lessonKey);
     // set this school to new lesson list
-    school[0].lessons = [...list]
+    school[0].lessons = [...list];
     // add all other educaitons and this updated one
-    this.setState({
-      education: [...notSchool, school[0]]
-    })
-  }
+    setAppState({
+      ...appState,
+      education: [...notSchool, school[0]],
+    });
+  };
 
-  render() {
-    // current state
-    const general = this.state
-    const slide = this.state.slide
+  const slideNumber = appState.slide;
 
-    // load correct component based on which slide.
-    return (
-      <>
-        {slide === 0 ? 
-          // General information form
-          <>
+  // load correct component based on which slide.
+  return (
+    <>
+      {slideNumber === 0 ? (
+        // General information form
+        <>
           <Header />
           <div className="formContainer">
-            <InfoForm onSubmit = {this.handleSubmitInfo} details = {general.general}/> 
+            <InfoForm onSubmit={handleSubmitInfo} state={appState} />
           </div>
-          </>
-          : 
-          slide === 1 ?
-          // Education form
-          <>
+        </>
+      ) : slideNumber === 1 ? (
+        // Education form
+        <>
           <Header />
           <div className="formContainer">
-            <EduForm onSubmit = {this.handleSubmitEdu} editEdu = {this.state.editEdu} />
+            <EduForm onSubmit={handleSubmitEdu} editEdu={appState.editEdu} />
           </div>
-          </>
-          : 
-          slide === 2 ?
-          // Employment form
-          <>
+        </>
+      ) : slideNumber === 2 ? (
+        // Employment form
+        <>
           <Header />
           <div className="formContainer">
-            <ExpForm onSubmit = {this.handleSubmitExp} editExp = {this.state.editExp}/>
+            <ExpForm onSubmit={handleSubmitExp} editExp={appState.editExp} />
           </div>
-          </>
-          :
-          slide === 3 ?
-          // Skills form
-          <>
+        </>
+      ) : slideNumber === 3 ? (
+        // Skills form
+        <>
           <Header />
           <div className="formContainer">
-            <SkillForm onSubmit = {this.handleSubmitSkill}/>
+            <SkillForm onSubmit={handleSubmitSkill} />
           </div>
-          </>
-          :
-          slide === 4 &&
+        </>
+      ) : (
+        slideNumber === 4 && (
           // All gathered information
           <>
             <Header />
             <div className="all">
-              <All deleteLesson = {this.deleteLesson}  general = {general} handleAddSkill = {this.handleAddSkill} handleDelete = {this.handleDelete} handleEditExp = {this.handleEditExp}  handleEditEdu = {this.handleEditEdu} handleEditGen = {this.handleEditGen}/>
+              <All
+                deleteLesson={deleteLesson}
+                state={appState}
+                handleAddSkill={handleAddSkill}
+                handleDelete={handleDelete}
+                handleEditExp={handleEditExp}
+                handleEditEdu={handleEditEdu}
+                handleEditGen={handleEditGen}
+              />
             </div>
           </>
-        }
-      </>
-    );
-  }
-}
-
-export default App;
+        )
+      )}
+    </>
+  );
+};

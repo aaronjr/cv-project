@@ -1,46 +1,53 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import uniqid from "uniqid";
 
-export default class SkillForm extends Component {
-  constructor(props) {
-    super(props);
+export const SkillForm = props => {
 
-    this.state = {
-      key: uniqid(),
-      skill: ''
-    }
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  prevent(e){
+  const [skill, setSkill] = useState({
+    key: uniqid(),
+    skill: ''
+  })
+   
+  const prevent = (e) => {
     e.preventDefault()
   }
 
-  handleSubmit(bool){
-    this.props.onSubmit(this.state, bool)
-    this.setState({
-      skill: '',
-      key: uniqid()
+  const handleSubmit = (bool) => {
+    props.onSubmit(skill, bool)
+    setSkill({
+      key: uniqid(),
+      skill: ''
     })
   }
 
-  render() {
-    const details = this.state
-
-    return (
-      <div>
-        <form>
-          <label htmlFor="skill">Skills</label>
-            <input
-              onChange={(e) => this.setState({skill : e.target.value, key: this.state.key})}
-              value={details.skill || ''}
-              type="text"
-              id="skill"
-            />
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(false)}>Add another skill</button>
-            <button type='button' onClick = { this.prevent, () => this.handleSubmit(true)}>Submit</button>
-        </form>
-      </div>
-    );
-  };
+  const handleChange = (e) => {
+    setSkill({...skill, skill:e.target.value })
+  }
+  
+  return (
+    <div>
+      <form>
+        <label htmlFor="skill">Skills</label>
+        <input
+          onChange={(e) => handleChange(e)}
+          value={skill.skill}
+          name="skill"
+          type="text"
+          id="skill"
+        />
+        <button
+          type="button"
+          onClick={(prevent, () => handleSubmit(false))}
+        >
+          Add another skill
+        </button>
+        <button
+          type="button"
+          onClick={(prevent, () => handleSubmit(true))}
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }
