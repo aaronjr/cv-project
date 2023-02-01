@@ -6,7 +6,6 @@ import { SkillForm } from "./skillForm";
 import { Header } from "./header";
 import "./index.css";
 import { All } from "./All";
-import { useEffect } from "react";
 
 export const App = () => {
   const [appState, setAppState] = useState({
@@ -19,21 +18,21 @@ export const App = () => {
     education: [],
     experience: [],
     skills: [],
-    slide: 0,
-    shouldSlide: true,
     editEdu: null,
     editExp: null,
   });
 
-  useEffect(() => {}, [appState]);
+  const [slideNumber, setSlideNumber] = useState(0)
+  const [shouldSlide, setShouldSlide] = useState(true)
 
   // control which page is shown
   const slide = () => {
-    appState.slide >= 3 && setAppState({ ...appState, shouldSlide: false });
-    appState.shouldSlide === true
-      ? setAppState({ ...appState, slide: appState.slide + 1 })
-      : setAppState({ ...appState, slide: 4 });
-    console.log(appState.slide);
+    slideNumber >= 3 &&
+      setShouldSlide(false);
+    
+    shouldSlide === true
+      ? setSlideNumber(slideNumber + 1)
+      : setSlideNumber(4);
   };
 
   // take the input and update the state
@@ -110,9 +109,9 @@ export const App = () => {
     setAppState({
       // set slide for this form
       ...appState,
-      slide: 1,
       editEdu: editEdu.length === 0 ? null : editEdu,
     });
+    setSlideNumber(1)
   };
 
   const handleEditExp = (key) => {
@@ -120,18 +119,13 @@ export const App = () => {
     let editExp = appState.experience.filter((exp) => exp.key === key);
     setAppState({
       ...appState,
-      // set slide for this form
-      slide: 2,
       editExp: editExp.length === 0 ? null : editExp,
     });
+    setSlideNumber(2);
   };
 
   const handleEditGen = () => {
-    setAppState({
-      ...appState,
-      // set slide for this form
-      slide: 0,
-    });
+    setSlideNumber(0);
   };
 
   const handleDelete = (location, key) => {
@@ -141,16 +135,12 @@ export const App = () => {
       ...appState,
       [`${location}`]: [...update],
       // set slide for this form
-      slide: 4,
     });
+    setSlideNumber(4);
   };
 
   const handleAddSkill = () => {
-    setAppState({
-      ...appState,
-      // set slide for this form
-      slide: 3,
-    });
+  setSlideNumber(3);
   };
 
   const deleteLesson = (eduKey, lessonKey) => {
@@ -168,8 +158,6 @@ export const App = () => {
       education: [...notSchool, school[0]],
     });
   };
-
-  const slideNumber = appState.slide;
 
   // load correct component based on which slide.
   return (
@@ -213,8 +201,8 @@ export const App = () => {
             <Header />
             <div className="all">
               <All
-                deleteLesson={deleteLesson}
                 state={appState}
+                deleteLesson={deleteLesson}
                 handleAddSkill={handleAddSkill}
                 handleDelete={handleDelete}
                 handleEditExp={handleEditExp}
