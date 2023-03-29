@@ -6,7 +6,7 @@ export const ShowGeneral = props => {
   return (
     <div className="holder general">
       <div className="Info">
-        <h3>Personal</h3>
+        <h3>Personal information</h3>
         <p>{general.name}</p>
         <p>{general.email}</p>
         <p>{general.phone}</p>

@@ -141,7 +141,7 @@ h1{
 }
 .lesson{
   display: flex;
-  align-items: center;  
+  align-items: flex-start;
 }
 
 .lesson > .bin{
@@ -161,9 +161,7 @@ h1{
 }
 
 .general p{
-  margin-top: 0px;
-  margin-bottom: 5px;
- 
+  margin: 0px 0px 5px 5px
 }
 
 .general{
@@ -242,6 +240,10 @@ li{
   .general h3{
     margin-bottom: 10px;
   }
+  .general  p{
+    margin-left: 10px;
+  }
+
   .all{
     height: 100vh;
     width: 100vw;
@@ -264,6 +266,10 @@ li{
     background-color: white;
   }
 
+  .lessonUL{
+      padding-inline-start: 20px;
+  }
+
   .skills{
     display: flex;
     flex-direction: row;
@@ -279,6 +285,9 @@ li{
     content: '.';
   }
 
+  h3{
+    padding-left: 10px;
+  }
   @page {
     size: auto;   /* auto is the initial value */
     margin: 20px;  /* this affects the margin in the printer settings */

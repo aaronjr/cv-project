@@ -17,7 +17,7 @@ export const ShowSkills = props => {
               {skills.map((skill) => {
                 return (
                   skill.skill !== "" && (
-                    <li key={skill.key}>
+                    <li className="lesson" key={skill.key}>
                       {skill.skill}
                       <Icon
                         className="bin"

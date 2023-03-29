@@ -14,9 +14,11 @@ export const ShowEdu = props => {
               <ul key={edu.key} className="holder">
                 <div className="Info">
                   <li className="titleInfo">
-                    {edu.schoolName}{" "}
+                    {edu.schoolName}{": "}
                     <span className="dates">
-                      {edu.yearFrom} - {edu.yearTo}
+                      {edu.yearFrom && edu.yearTo
+                        ? `${edu.yearFrom} - ${edu.yearTo}`
+                        : `${edu.yearFrom} ${edu.yearTo}`}
                     </span>
                   </li>
                   <li style={{ marginBottom: "7px" }}>Subjects: </li>
