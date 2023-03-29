@@ -117,7 +117,7 @@ h1{
 .all{
   background-color: white;
   padding: 10px;
-  width: 50vw;
+  width: clamp(300px, 70%, 800px);
   border-radius: .5rem;
   box-shadow: 5px 5px 20px black;
   margin-bottom: 30px;
@@ -127,6 +127,7 @@ h1{
   display: flex;
   justify-content: space-between;
   list-style-type: none;
+  margin: 5px 0px 0px 10px;
 }
 
 .Info{
@@ -144,8 +145,7 @@ position: relative;
 
 .lesson > .bin{
   position: absolute;
-  left: -25%;
-  top: -5%;
+  left: -20px;
 }
 
 .skills{
@@ -162,6 +162,11 @@ position: relative;
 .general p{
   margin-top: 0px;
   margin-bottom: 5px;
+ 
+}
+
+.general{
+  margin-left: 0px;
 }
 
 .pbioheader{
@@ -188,8 +193,6 @@ li{
   position: absolute;
   height: 1rem;
   width: 1rem;
-  bottom: -10%;
-  left: -4.5%;
 }
 
 
@@ -204,6 +207,7 @@ li{
 .buttonHolder{
   align-self: center;
   display: flex;
+  flex-direction: row;
 }
 
 .titleInfo{
@@ -216,45 +220,9 @@ li{
   align-items: center;
 }
 
-@media (min-width: 300px) {
-  .all{
-    width: 85vw
-  }
+@media (max-width: 700px) {
   .buttonHolder{
     flex-direction: column;
-  }
-    .bin
-    {
-      left: -15%;
-    }
-  
-    .header{
-      height: 50%;
-    }
-}
-
-@media (min-width: 800px) {
-  .all{
-    width: 80vw
-  }
-  .bin{
-    left: -4.5%;
-  }
-  .eduButtonHolder
-    {
-      flex-direction: row;
-    }
-}
-
-@media (min-width: 1000px) {
-  .all{
-    width: 70vw
-  }
-}
-
-@media (min-width: 1200px) {
-  .all{
-    width: 60vw
   }
 }
 
@@ -308,8 +276,9 @@ li{
   .skills li:nth-last-child(1)::after{
     content: '.';
   }
+  
   @page {
     size: auto;   /* auto is the initial value */
     margin: 20px;  /* this affects the margin in the printer settings */
-}
+  }
 }
