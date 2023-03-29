@@ -14,7 +14,7 @@ export const All = props => {
 
   return (
     // pass relevant data into each component
-    <div>
+    <div className="all">
       <h1 className="CV">CV</h1>
       <button className="PDF" onClick={() => window.print()}>Create PDF</button>
       <ShowGeneral general = {general} onClick = {props.handleEditGen} />

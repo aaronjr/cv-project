@@ -45,7 +45,7 @@ export const InfoForm = props => {
           type="number"
           id="phone"
         />
-        <label htmlFor="bio">Bio</label>
+        <label htmlFor="bio">Personal statement</label>
         <textarea
           onChange={(e) => normalChange(e)}
           name={"bio"}

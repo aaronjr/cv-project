@@ -200,7 +200,6 @@ export const App = () => {
           // All gathered information
           <>
             <Header />
-            <div className="all">
               <All
                 state={appState}
                 deleteLesson={deleteLesson}
@@ -210,7 +209,6 @@ export const App = () => {
                 handleEditEdu={handleEditEdu}
                 handleEditGen={handleEditGen}
               />
-            </div>
           </>
         )
       )}

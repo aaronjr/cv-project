@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400&display=swap');
 
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
 :root{
   --outline: #7395AE;
   --hover: #8dadc4;
@@ -10,13 +15,19 @@
 .PDF{
   background-color: #8ec48d;
   border-color: white;
+  max-width: 100px;
+  margin: 0px;
+  margin-bottom: 20px;
 }
 
 .header{
   font-size: x-large;
   background-color: white;
   width: 100vw;
+  display: grid;
+  place-items: center;
   place-self: flex-start;
+  height: 80%;
 }
 
 body {
@@ -69,7 +80,10 @@ button{
   border: solid var(--outline) 1px;
   background-color: var(--outline);
   color: white;
+  height: min-content;
+  min-width: 61px;
 }
+
 
 button:hover{
   background-color: var(--hover);
@@ -102,18 +116,36 @@ h1{
 
 .all{
   background-color: white;
-  margin: 30px;
   padding: 10px;
   width: 50vw;
   border-radius: .5rem;
   box-shadow: 5px 5px 20px black;
+  margin-bottom: 30px;
 }
 
 .holder{
-  padding-right: 150px;
-  position: relative;
+  display: flex;
+  justify-content: space-between;
   list-style-type: none;
-  padding-left: 0px;
+}
+
+.Info{
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.lessonUL{
+  padding-inline-start: 40px;
+}
+.lesson{
+position: relative;
+}
+
+.lesson > .bin{
+  position: absolute;
+  left: -25%;
+  top: -5%;
 }
 
 .skills{
@@ -122,45 +154,18 @@ h1{
 }
 
 .eachCategory{
-  padding: 10px;
+  margin: 10px 0px;
   display: flex;
   flex-direction: column;
 }
 
-.general{
-  padding: 10px;
-  padding-right: 100px;
-  border-radius: .5rem;
-  position: relative;
-}
-.general > p{
+.general p{
   margin-top: 0px;
   margin-bottom: 5px;
 }
 
-.general > button {
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(-0%, -50%);
-}
-
 .pbioheader{
   margin-bottom: 5px;
-}
-
-.edit{
-  position: absolute;
-  top: 50%;
-  right: 10%;
-  transform: translate(0%, -50%);
-}
-
-.del{
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translate(0%, -50%);
 }
 
 form{
@@ -205,17 +210,40 @@ li{
   font-weight: bold;
 }
 
+.buttonHolder{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (min-width: 300px) {
   .all{
-    margin: 30px 0px;
     width: 85vw
   }
+  .buttonHolder{
+    flex-direction: column;
+  }
+    .bin
+    {
+      left: -15%;
+    }
+  
+    .header{
+      height: 50%;
+    }
 }
 
 @media (min-width: 800px) {
   .all{
     width: 80vw
   }
+  .bin{
+    left: -4.5%;
+  }
+  .eduButtonHolder
+    {
+      flex-direction: row;
+    }
 }
 
 @media (min-width: 1000px) {
