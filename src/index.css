@@ -161,7 +161,7 @@ h1{
 }
 
 .general p{
-  margin: 0px 0px 5px 5px
+  margin: 0px 0px 5px 10px
 }
 
 .general{
@@ -237,6 +237,10 @@ li{
   .bin {
     display: none;
   }
+  .general{
+    margin-top: 50px;
+  }
+  
   .general h3{
     margin-bottom: 10px;
   }
