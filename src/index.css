@@ -133,7 +133,7 @@ h1{
 .Info{
   display: flex;
   flex-direction: column;
-  margin-right: 20px;
+  margin: 5px 20px 5px 0px;
 }
 
 .lessonUL{

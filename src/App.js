@@ -8,23 +8,44 @@ import "./index.css";
 import { All } from "./All";
 
 export const App = () => {
-  // initiate states
-  const [appState, setAppState] = useState({
-    general: {
-      name: "",
-      email: "",
-      phone: "",
-      bio: "",
-    },
-    education: [],
-    experience: [],
-    skills: [],
-    editEdu: null,
-    editExp: null,
-  });
 
-  const [slideNumber, setSlideNumber] = useState(0)
-  const [shouldSlide, setShouldSlide] = useState(true)
+  const [slideNumber, setSlideNumber] = useState(0);
+  const [shouldSlide, setShouldSlide] = useState(true);
+
+  const getData = () => {
+     let local = {};
+     if (localStorage.getItem("appState")) {
+       local = JSON.parse(localStorage.getItem("appState"));
+       setSlideNumber(4);
+       setShouldSlide(false)
+     } else {
+       // initiate states if not in local storage
+       local = {
+         general: {
+           name: "",
+           email: "",
+           phone: "",
+           bio: "",
+         },
+         education: [],
+         experience: [],
+         skills: [],
+         editEdu: null,
+         editExp: null,
+       };
+     }
+     return local;
+   };
+  
+  const [appState, setAppState] = useState(() => getData())
+
+  const setLocal = () => {
+    localStorage.setItem("appState", JSON.stringify(appState));
+  }
+
+  window.addEventListener("beforeunload", () => {
+    setLocal();
+  })
 
   // control which page is shown
   const slide = () => {
@@ -141,7 +162,7 @@ export const App = () => {
   };
 
   const handleAddSkill = () => {
-  setSlideNumber(3);
+    setSlideNumber(3);
   };
 
   const deleteLesson = (eduKey, lessonKey) => {
@@ -176,7 +197,7 @@ export const App = () => {
         <>
           <Header />
           <div className="formContainer">
-            <EduForm onSubmit={handleSubmitEdu} editEdu={appState.editEdu} />
+              <EduForm onSubmit={handleSubmitEdu} editEdu={appState.editEdu} />
           </div>
         </>
       ) : slideNumber === 2 ? (
