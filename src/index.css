@@ -140,7 +140,8 @@ h1{
   padding-inline-start: 40px;
 }
 .lesson{
-position: relative;
+  display: flex;
+  align-items: center;  
 }
 
 .lesson > .bin{
@@ -265,6 +266,7 @@ li{
 
   .skills{
     display: flex;
+    flex-direction: row;
     text-transform: lowercase;
   }
   .skills li:first-child {
@@ -276,7 +278,7 @@ li{
   .skills li:nth-last-child(1)::after{
     content: '.';
   }
-  
+
   @page {
     size: auto;   /* auto is the initial value */
     margin: 20px;  /* this affects the margin in the printer settings */
