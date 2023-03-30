@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { InfoForm } from "./infoForm";
 import { EduForm } from "./eduForm";
 import { ExpForm } from "./expForm";
@@ -43,7 +43,8 @@ export const App = () => {
     localStorage.setItem("appState", JSON.stringify(appState));
   }
 
-  window.addEventListener("beforeunload", () => {
+  // on any change update local storage
+  useEffect(()=>{
     setLocal();
   })
 
